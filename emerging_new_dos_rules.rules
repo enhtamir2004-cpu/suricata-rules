@@ -1,0 +1,1 @@
+alert icmp any any -> $HOME_NET any (msg:"ICMP Flood Test"; sid:100001; rev:1; )
