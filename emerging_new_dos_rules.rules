@@ -12,3 +12,6 @@ drop udp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"Potential DNS Amplification Res
 
 alert udp $EXTERNAL_NET 123 -> $HOME_NET any (msg:"Potential NTP Amplification Response Detected"; dsize:>200; threshold:type threshold, track by_src, count 10, seconds 5; classtype:attempted-dos; sid:1000903; rev:1;)
 drop udp $EXTERNAL_NET 123 -> $HOME_NET any (msg:"Potential NTP Amplification Response Blocked"; dsize:>200; threshold:type threshold, track by_src, count 10, seconds 5; classtype:attempted-dos; sid:1000904; rev:1;)
+
+alert tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"L7 - HTTP GET Flood Detected"; flow:established,to_server; content:"GET"; http_method; threshold:type threshold, track by_src, count 30, seconds 5; classtype:attempted-dos; sid:1001001; rev:1;)
+drop tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"L7 - HTTP GET Flood Blocked"; flow:established,to_server; content:"GET"; http_method; threshold:type threshold, track by_src, count 30, seconds 5; classtype:attempted-dos; sid:1001002; rev:1;)
