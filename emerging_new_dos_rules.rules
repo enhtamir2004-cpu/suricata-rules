@@ -1,7 +1,1 @@
-alert arp any any -> any any (
-    msg:"Possible ARP Spoofing - Excessive ARP Replies";
-    arp_opcode:2;
-    detection_filter:track by_src,count 20,seconds 10;
-    sid:1000001;
-    rev:1;
-)
+alert arp any any -> any any (msg:"Possible ARP Spoofing - Excessive ARP Replies"; arp_opcode:2; detection_filter:track by_src,count 20,seconds 10; sid:1000001; rev:1;)
